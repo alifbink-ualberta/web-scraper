@@ -16,21 +16,26 @@ def parse_webpage(html_code):
 #For pages in edition.cnn.com/travel:
 #title:
 def print_title(page_soup):
-    title = page_soup.findAll("h1",{"class":"Article__title"})
-    print("\nTitle: " + title[0].text + "\n\n")
+    title = page_soup.findAll("h1", class_ = "Article__title")
+    print("\nTitle: " + title[0].text)
 
-#subtitle
+#author
+def print_author(page_soup):
+    author = page_soup.findAll("div", class_ = "Article__subtitle")
+    print("\nAuthor: " + author[0].text.split(" • ")[0])
 
 
 #latest date
-
+def print_latestdate(page_soup):
+    latestdate = page_soup.findAll("div", class_ = "Article__subtitle")
+    print("\nLast time update: " + latestdate[0].text.split(" • ")[1])
 
 
 #article
 def print_paragraphs(page_soup):
     paragraphs = page_soup.findAll("div", class_ = "Paragraph__component")
 
-    print("Article: \n")
+    print("\n\nArticle: \n")
     for c in paragraphs:
         print(c.span.text + "\n")
 
@@ -40,6 +45,6 @@ if __name__ == "__main__":
     html_code = get_webpage(user_url)
     page_soup = parse_webpage(html_code)
     print_title(page_soup)
-    #print_subtitle(page_soup)
-    #print_latestdate(page_soup)
+    print_author(page_soup)
+    print_latestdate(page_soup)
     print_paragraphs(page_soup)
