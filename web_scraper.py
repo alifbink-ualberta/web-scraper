@@ -11,8 +11,16 @@ url_req.close()
 #parse html data.
 page_soup = soup(html_code, "html.parser")
 
-#For CNN:
-#Gets title:
+#For pages in edition.cnn.com/travel:
+#title:
 title = page_soup.findAll("h1",{"class":"Article__title"})
 
-print(title[0].text)
+print("\n" + title[0].text + "\n\n")
+
+
+#article
+paragraphs = page_soup.findAll("div",{"class":"Paragraph__component"})
+
+for c in paragraphs:
+    print(c.span.text)
+    print("\n")
